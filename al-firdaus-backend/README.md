@@ -51,14 +51,14 @@ al-firdaus-backend/
 │   ├── models.py                # User model, roles, permissions
 │   ├── serializers.py           # User serializers
 │   ├── views.py                 # Authentication endpoints
-│   ├── permissions.py           # Role-based access control (RBAC)
+│   ├── permissions.py           # Role-based access control
 │   └── urls.py                  # /api/users/* endpoints
 ├── prayer_times/                # Prayer times management
 │   ├── models.py                # PrayerTime model
 │   ├── views.py                 # Prayer time endpoints
 │   ├── management/
 │   │   └── commands/
-│   │       └── generate_prayer_times.py  # Auto-calc command
+│   │       └── generate_prayer_times.py
 │   └── urls.py                  # /api/prayer-times/* endpoints
 ├── donations/                   # Donation & payment handling
 │   ├── models.py                # Donation, RecurringDonation models
@@ -89,7 +89,6 @@ al-firdaus-backend/
 ├── templates/                   # Django email templates
 │   ├── password_reset_email.html
 │   └── donation_receipt_email.html
-├── static/                      # Static files (collected during deploy)
 └── README.md                    # This file
 ```
 
@@ -140,30 +139,21 @@ WEBSITE_URL=http://localhost:3000
 POST   /api/auth/login/          - Login with email/password
 POST   /api/auth/logout/         - Logout (token invalidation)
 POST   /api/auth/password-reset/ - Request password reset email
-POST   /api/auth/password-confirm/ - Confirm new password with token
+POST   /api/auth/password-confirm/ - Confirm new password
 POST   /api/auth/refresh/        - Refresh authentication token
 GET    /api/auth/profile/        - Get current user profile
 PUT    /api/auth/profile/        - Update current user profile
-```
-
-**Login Example:**
-```bash
-curl -X POST http://localhost:8000/api/auth/login/ \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123"}'
-
-# Returns: {"token":"abc123xyz...", "user": {...}}
 ```
 
 ### Prayer Times
 
 ```
 GET    /api/prayer-times/                 - List all prayer times
-GET    /api/prayer-times/?date=2026-09-08 - Get prayer times for specific date
-GET    /api/prayer-times/<id>/            - Get specific prayer time entry
-POST   /api/prayer-times/                 - Create prayer time (admin only)
-PUT    /api/prayer-times/<id>/            - Update prayer time (admin only)
-DELETE /api/prayer-times/<id>/            - Delete prayer time (admin only)
+GET    /api/prayer-times/?date=2026-09-08 - Get for specific date
+GET    /api/prayer-times/<id>/            - Get specific entry
+POST   /api/prayer-times/                 - Create (admin only)
+PUT    /api/prayer-times/<id>/            - Update (admin only)
+DELETE /api/prayer-times/<id>/            - Delete (admin only)
 ```
 
 **Response Example:**
@@ -184,40 +174,11 @@ DELETE /api/prayer-times/<id>/            - Delete prayer time (admin only)
 
 ```
 POST   /api/donations/              - Create new donation
-GET    /api/donations/              - List donations (admin: all, user: own)
+GET    /api/donations/              - List donations
 GET    /api/donations/<id>/         - Get specific donation
 GET    /api/donations/<id>/receipt/ - Download PDF receipt
 POST   /api/donations/webhook/      - Selcom payment webhook
-GET    /api/donations/analytics/    - Donation stats (admin only)
-```
-
-**Create Donation:**
-```bash
-curl -X POST http://localhost:8000/api/donations/ \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Token abc123xyz..." \
-  -d '{
-    "amount": 50000,
-    "donor_name": "John Doe",
-    "donor_email": "john@example.com",
-    "donation_type": "one_time",
-    "payment_method": "selcom"
-  }'
-```
-
-**Response:**
-```json
-{
-  "id": 1,
-  "amount": 50000,
-  "currency": "TZS",
-  "donor_name": "John Doe",
-  "donor_email": "john@example.com",
-  "status": "pending",
-  "payment_method": "selcom",
-  "created_at": "2026-09-08T10:30:00Z",
-  "reference_number": "FIRDAUS-2026-09-001"
-}
+GET    /api/donations/analytics/    - Donation stats (admin)
 ```
 
 ### Events
@@ -230,22 +191,6 @@ PUT    /api/events/<id>/           - Update event (admin only)
 DELETE /api/events/<id>/           - Delete event (admin only)
 POST   /api/events/<id>/rsvps/     - RSVP to event
 GET    /api/events/<id>/rsvps/     - Get RSVPs for event
-DELETE /api/events/<id>/rsvps/     - Cancel RSVP
-```
-
-**Event Response:**
-```json
-{
-  "id": 1,
-  "title": "Quran Study Circle",
-  "description": "Weekly Quran study session for adults",
-  "date": "2026-09-15",
-  "time": "19:00",
-  "location": "Main Prayer Hall",
-  "capacity": 50,
-  "rsvp_count": 23,
-  "created_at": "2026-09-08T10:00:00Z"
-}
 ```
 
 ### Khutbahs (Sermons)
@@ -255,32 +200,16 @@ GET    /api/khutbahs/              - List all sermons
 POST   /api/khutbahs/              - Create sermon (admin only)
 GET    /api/khutbahs/<id>/         - Get specific sermon
 PUT    /api/khutbahs/<id>/         - Update sermon (admin only)
-DELETE /api/khutbahs/<id>/         - Delete sermon (admin only)
-```
-
-**Khutbah Response:**
-```json
-{
-  "id": 1,
-  "title": "The Importance of Patience",
-  "summary": "A reflection on sabr (patience) in Islamic tradition",
-  "full_text": "...",
-  "speaker": "Imam Ahmed",
-  "date": "2026-09-04",
-  "language": "English",
-  "audio_url": "https://...",
-  "created_at": "2026-09-04T10:00:00Z"
-}
 ```
 
 ### Announcements
 
 ```
 GET    /api/announcements/          - List announcements
-POST   /api/announcements/          - Create announcement (admin only)
-GET    /api/announcements/<id>/     - Get specific announcement
-PUT    /api/announcements/<id>/     - Update announcement (admin only)
-DELETE /api/announcements/<id>/     - Delete announcement (admin only)
+POST   /api/announcements/          - Create (admin only)
+GET    /api/announcements/<id>/     - Get specific
+PUT    /api/announcements/<id>/     - Update (admin only)
+DELETE /api/announcements/<id>/     - Delete (admin only)
 ```
 
 ### Audit Logs (Admin Only)
@@ -294,77 +223,45 @@ GET    /api/audit-logs/?action=CREATE - Filter by action
 ## Features
 
 ### 1. Authentication & Authorization
-
-- Token-based authentication (Django built-in)
+- Token-based authentication
 - Role-based access control (RBAC):
   - **Admin:** Full system access
   - **User:** Personal data only
   - **Public:** Read-only access
 
-```python
-# In permissions.py
-class IsAdminOrReadOnly(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return request.user and request.user.is_staff
-```
-
 ### 2. Prayer Times
-
-Auto-calculated using Islamic calendar algorithms:
-- Latitude: -6.8000 (Dar es Salaam)
-- Longitude: 39.2833
+- Auto-calculated using Islamic calendar algorithms
 - Pre-calculated for 12 months
-- Updates daily at midnight
-
-```bash
-python manage.py generate_prayer_times
-```
+- Updates automatically
 
 ### 3. Donations & Payments
-
 - Integration with Selcom (Tanzanian payment gateway)
 - Sandbox mode for testing, live mode for production
-- PDF receipt generation using ReportLab
+- PDF receipt generation
 - Webhook support for payment confirmation
 - Recurring donation intent tracking
 
 ### 4. Events Management
-
 - Create, update, delete events
 - RSVP tracking with attendee count
 - Capacity limits
-- Calendar view support
 
 ### 5. Audit Logging
-
-Every action logged automatically:
-- User & timestamp
-- Action type (CREATE, READ, UPDATE, DELETE)
-- Resource affected
-- IP address & user agent
+- Every action logged automatically
+- User & timestamp tracking
+- Action type logging
 - For ISO compliance
 
-```python
-# Middleware auto-logs in audit_logs app
-# No code changes needed - all endpoints covered
-```
-
 ### 6. Email Integration
-
 - Password reset emails
 - Donation confirmation emails
-- Event reminder emails (future)
-- Configurable via .env (Gmail, SendGrid, etc.)
+- Configurable via .env
 
 ### 7. Firebase Integration
-
 - Push notifications for:
   - Prayer time reminders
   - Event announcements
   - New khutbahs
-- Cloud Messaging (FCM) only (no SMS)
 
 ## Testing
 
@@ -380,29 +277,6 @@ python manage.py test users
 # Run with coverage report
 coverage run --source='.' manage.py test
 coverage report
-```
-
-### Test an Endpoint
-
-```bash
-# Get prayer times
-curl http://localhost:8000/api/prayer-times/
-
-# Create a donation (requires auth token)
-curl -X POST http://localhost:8000/api/donations/ \
-  -H "Authorization: Token YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"amount":10000,"donor_name":"Test"}'
-
-# Admin only - create event
-curl -X POST http://localhost:8000/api/events/ \
-  -H "Authorization: Token ADMIN_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Test Event",
-    "date": "2026-09-15",
-    "time": "19:00"
-  }'
 ```
 
 ## Deployment
@@ -435,10 +309,6 @@ curl -X POST http://localhost:8000/api/events/ \
    python manage.py generate_prayer_times
    ```
 
-6. **Access Django Admin**
-   - URL: `https://your-api.onrender.com/admin/`
-   - Login with superuser credentials created above
-
 ### Production Checklist
 
 - [ ] DEBUG = False
@@ -450,7 +320,7 @@ curl -X POST http://localhost:8000/api/events/ \
 - [ ] SSL certificate (automatic on Render)
 - [ ] Database backups enabled
 - [ ] Error tracking enabled (Sentry)
-- [ ] Admin password changed from default
+- [ ] Admin password changed
 - [ ] Selcom real account (not sandbox)
 - [ ] Firebase credentials configured
 
@@ -464,9 +334,6 @@ echo $DATABASE_URL
 
 # Test connection
 python manage.py dbshell
-
-# If using localhost, ensure PostgreSQL is running
-psql -l
 ```
 
 ### Email Not Sending
@@ -476,9 +343,6 @@ psql -l
 python manage.py shell
 >>> from django.core.mail import send_mail
 >>> send_mail('Test', 'Test', 'from@example.com', ['to@example.com'])
-
-# Check .env EMAIL_* variables
-# For Gmail: use app-specific password (not main password)
 ```
 
 ### Prayer Times Not Showing
@@ -492,58 +356,6 @@ python manage.py shell
 # Generate if empty
 python manage.py generate_prayer_times
 ```
-
-### Selcom Webhook Not Received
-
-```bash
-# Verify webhook URL in Selcom settings
-# Should be: https://your-api.com/api/donations/webhook/
-
-# Check Django logs for errors
-tail -f render logs  # if on Render
-
-# Test in Selcom dashboard with test payment
-```
-
-### Admin Dashboard 403 Forbidden
-
-```bash
-# Ensure user is staff/superuser
-python manage.py shell
->>> from users.models import User
->>> u = User.objects.get(email='admin@example.com')
->>> u.is_staff = True
->>> u.is_superuser = True
->>> u.save()
-```
-
-## Performance Tips
-
-1. **Enable Caching**
-   ```python
-   # In settings.py
-   CACHES = {
-       'default': {
-           'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-           'LOCATION': 'redis://127.0.0.1:6379/1',
-       }
-   }
-   ```
-
-2. **Database Optimization**
-   - Add indexes on frequently queried fields
-   - Use `select_related()` and `prefetch_related()`
-   - Monitor slow queries
-
-3. **API Optimization**
-   - Pagination for large lists
-   - Filtering and search
-   - Response compression (GZIP)
-
-4. **Background Tasks**
-   - Use Celery for async tasks
-   - Generate prayer times in background
-   - Send emails asynchronously
 
 ## Security Considerations
 

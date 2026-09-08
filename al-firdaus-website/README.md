@@ -72,21 +72,11 @@ fetch(`${API_BASE}/prayer-times/`)
 - Shows on map with distance
 - Works offline after first load
 
-```javascript
-// Qibla calculation in qibla.js
-const qiblaAngle = calculateQibla(userLat, userLon);
-```
-
 ### 3. Zakat Calculator
 - Client-side calculation (no API call needed)
 - Supports multiple asset types (gold, silver, cash, etc.)
 - Uses current Islamic Nisab values
 - Offline capable
-
-```javascript
-// In zakat.js
-const zakatAmount = calculateZakat(assets, nisabThreshold);
-```
 
 ### 4. Events Calendar
 - Fetches events from `/api/events/`
@@ -104,26 +94,21 @@ const zakatAmount = calculateZakat(assets, nisabThreshold);
 - Latest updates and notices
 - Fetched from `/api/announcements/`
 - Timestamped and categorized
-- Push notifications for important updates
 
 ### 7. Donations
 - Integration with Selcom payment gateway
-- One-time and recurring donation options
 - Secure payment processing
 - Receipt generation (PDF)
-- Donation history (if logged in)
 
 ### 8. Language Toggle
 - English ↔ Swahili switching
 - Persisted in browser localStorage
 - All text dynamically updated
-- Icons for language selection
 
 ### 9. Progressive Web App (PWA)
 - Installable on mobile home screen
 - Offline functionality via Service Worker
 - Works with poor network connection
-- Caches prayer times and static assets
 
 ## Configuration
 
@@ -139,14 +124,6 @@ const API_BASE = 'http://localhost:8000/api';
 const API_BASE = 'https://your-production-api.onrender.com/api';
 ```
 
-### Update Contact Information
-
-Edit `index.html` and relevant pages to add:
-- Mosque address and phone number
-- Email contact
-- Social media links
-- Opening hours
-
 ### Customize Branding
 
 Edit `css/theme.css`:
@@ -156,7 +133,6 @@ Edit `css/theme.css`:
   --secondary-color: #d4af37;    /* Accent (gold) */
   --text-color: #333;
   --background-color: #fff;
-  --font-family: 'Arial', sans-serif;
 }
 ```
 
@@ -185,19 +161,6 @@ python -m http.server 3000
 - Ensure Django backend is running on `http://localhost:8000`
 - Or update `API_BASE` in main.js to point to existing backend
 
-4. Open browser
-```bash
-open http://localhost:3000
-```
-
-### Development Workflow
-
-1. **Edit HTML/CSS/JS** in your text editor
-2. **Refresh browser** (Cmd+R / Ctrl+R)
-3. **Check DevTools** (F12) for errors
-4. **Test on mobile** - use chrome://inspect or ngrok tunnel
-5. **Commit changes** - `git add .` → `git commit -m "description"` → `git push`
-
 ### Testing Checklist
 
 Before pushing changes:
@@ -208,7 +171,6 @@ Before pushing changes:
 - [ ] Zakat calculator produces correct amounts
 - [ ] Events load from API
 - [ ] Language toggle switches all text
-- [ ] Donation button appears
 - [ ] Mobile responsive (test in DevTools device mode)
 - [ ] Service worker registered (Application tab in DevTools)
 - [ ] No console errors (F12 → Console)
@@ -234,29 +196,11 @@ git push origin main
    - Change `API_BASE` to production backend URL
    - Push to trigger auto-redeploy
 
-### Custom Domain
-
-1. In Cloudflare, add CNAME record:
-   ```
-   Name: www (or @)
-   Target: your-site.pages.dev
-   ```
-
-2. Cloudflare provides SSL automatically
-
-3. Update Django backend CORS settings:
-   ```
-   CORS_ALLOWED_ORIGINS=https://your-domain.com
-   ```
-
 ## API Integration
 
 ### Prayer Times
 
 ```javascript
-// GET /api/prayer-times/
-// Returns: {date: "2026-09-08", fajr: "05:30", dhuhr: "12:15", asr: "15:45", maghrib: "18:20", isha: "19:45"}
-
 const response = await fetch(`${API_BASE}/prayer-times/`);
 const times = await response.json();
 document.getElementById('fajr-time').textContent = times.fajr;
@@ -265,9 +209,6 @@ document.getElementById('fajr-time').textContent = times.fajr;
 ### Events
 
 ```javascript
-// GET /api/events/
-// Returns: [{id: 1, title: "Quran Study", date: "2026-09-15", time: "19:00", description: "..."}]
-
 const response = await fetch(`${API_BASE}/events/`);
 const events = await response.json();
 events.forEach(event => renderEvent(event));
@@ -276,7 +217,6 @@ events.forEach(event => renderEvent(event));
 ### Donations
 
 ```javascript
-// POST /api/donations/
 const donation = {
   amount: 50000,  // in shillings
   donor_name: "John Doe",
@@ -307,33 +247,11 @@ const response = await fetch(`${API_BASE}/donations/`, {
 - Check Service Worker in DevTools → Application
 - Clear browser cache (Application → Clear storage)
 - Refresh page
-- Service worker should show "activated"
 
 ### Layout Broken on Mobile
 - Check viewport meta tag in HTML
 - Test in DevTools device mode
 - Verify CSS media queries in responsive.css
-
-### Language Toggle Not Working
-- Check localStorage in DevTools (F12 → Application)
-- Verify language code in main.js matches HTML data attributes
-- Clear localStorage if stuck
-
-## Performance Tips
-
-1. **Optimize images** - Use tools like TinyPNG before uploading
-2. **Cache strategy** - Service worker caches prayer times
-3. **Lazy load** - Load heavy images only when needed
-4. **Minify CSS/JS** - Consider for production (if build added)
-5. **CDN** - Cloudflare provides edge caching
-
-## Security Considerations
-
-1. **No sensitive data in JavaScript** - API keys, secrets in backend only
-2. **HTTPS always** - Production must use HTTPS
-3. **CORS whitelisted** - Backend only accepts requests from known domain
-4. **Input validation** - Backend validates all inputs before processing
-5. **DonateOPT** - Never store payment details client-side
 
 ## Browser Support
 
@@ -343,23 +261,20 @@ const response = await fetch(`${API_BASE}/donations/`, {
 - Edge 90+
 - Mobile browsers (iOS Safari, Chrome Android)
 
-Older browsers will work but PWA features unavailable.
-
 ## Contributing
 
 1. Fork repository
 2. Create feature branch: `git checkout -b feature/awesome-feature`
-3. Make changes
-4. Test thoroughly (see Testing Checklist above)
-5. Commit: `git commit -m "Add awesome feature"`
-6. Push: `git push origin feature/awesome-feature`
-7. Create Pull Request
+3. Make changes and test
+4. Commit: `git commit -m "Add awesome feature"`
+5. Push: `git push origin feature/awesome-feature`
+6. Create Pull Request
 
 ## Support & Issues
 
 For bugs, questions, or suggestions:
 - Create an issue on GitHub
-- Contact Deogratius Diu: deogratiusdiu123@gmail.com
+- Contact: deogratiusdiu123@gmail.com
 
 ---
 
