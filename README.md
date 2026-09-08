@@ -62,7 +62,7 @@ Full detail in the [build guide, Part 5](./docs/Al_Firdaus_Complete_Build_Guide.
 
 ## Contact
 
-**Deogratius Diu** — GRC Lead & ISO Champion, SoftNet Technologies Limited  
+**Deogratius Diu** — Software Developer, Phoenix Consulting Limited  
 📧 deogratiusdiu123@gmail.com
 
 ---
