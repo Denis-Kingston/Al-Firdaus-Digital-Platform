@@ -388,5 +388,4 @@ For issues, questions, or suggestions:
 
 ---
 
-**Last Updated:** September 2026  
-**Maintained by:** SoftNet Technologies Limited
+**Last Updated:** September 2026 
