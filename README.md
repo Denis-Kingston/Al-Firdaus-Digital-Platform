@@ -1,6 +1,6 @@
 # Al Firdaus Institute & Mosque — Digital Platform
 
-Website, backend API, admin dashboard, and mobile app for Al Firdaus Institute & Mosque, Dar es Salaam. This README is the map — start here, then follow the links into whichever repo or doc you actually need.
+Website, backend API, admin dashboard, and mobile app for Al Firdaus Institute & Mosque, Dar es Salaam. This README is the map start here, then follow the links into whichever repo or doc you actually need.
 
 ## Repositories
 
