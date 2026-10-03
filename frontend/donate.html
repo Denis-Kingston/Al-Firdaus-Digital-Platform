@@ -8,213 +8,328 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          emerald: { 950: '#0B1B13', 900: '#142E22', 800: '#1B3B2C', 700: '#26523E', 100: '#E8F2EC' },
+          gold: { DEFAULT: '#C9A227', light: '#E5C158', dark: '#A4821B', soft: '#F5EBCE' }
+        },
+        fontFamily: { serif: ['Fraunces', 'Georgia', 'serif'], sans: ['Inter', 'sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+  .lang-btn.active { background-color: #C9A227 !important; color: #0B1B13 !important; }
+  .amount-btn.active { background-color: #142E22 !important; color: #FFFFFF !important; border-color: #142E22 !important; }
+</style>
 <link rel="stylesheet" href="css/style.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#142E22">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-
 </head>
-<body>
-  <div class="utility-bar">
-    <div class="wrap utility-bar-inner">
-      <a href="https://wa.me/255700000000" target="_blank" rel="noopener" class="utility-link utility-whatsapp" aria-label="Chat on WhatsApp">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.7 14.3c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.2-3.6-.8-3-1.2-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5l-.5.5c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l1.7.8c.2.1.4.2.4.4 0 .2 0 .9-.2 1.6Z"/></svg> <span data-i18n="whatsapp_us">WhatsApp Us</span>
+<body class="font-sans bg-slate-50 text-slate-900 antialiased selection:bg-gold selection:text-emerald-950">
+
+  <!-- Utility Bar -->
+  <div class="bg-emerald-950 text-slate-300 text-xs py-2 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <a href="https://wa.me/255700000000" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-gold-light transition-colors">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.7 14.3c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.2-3.6-.8-3-1.2-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5l-.5.5c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l1.7.8c.2.1.4.2.4.4 0 .2 0 .9-.2 1.6Z"/></svg>
+        <span data-i18n="whatsapp_us" class="font-medium">WhatsApp Us</span>
       </a>
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" class="lang-btn active" data-lang="en">EN</button>
-        <button type="button" class="lang-btn" data-lang="sw">SW</button>
+      <div class="flex items-center gap-1 bg-white/10 p-0.5 rounded-md" role="group" aria-label="Language">
+        <button type="button" class="lang-btn px-2.5 py-0.5 rounded text-[11px] font-bold transition-all text-slate-400 hover:text-white" data-lang="en">EN</button>
+        <button type="button" class="lang-btn px-2.5 py-0.5 rounded text-[11px] font-bold transition-all text-slate-400 hover:text-white" data-lang="sw">SW</button>
       </div>
     </div>
   </div>
-  <header class="site-header">
-    <nav class="nav">
-      <a href="index.html" class="brand">
-        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="24" cy="24" r="24" fill="#1B3B2C"/>
-  <path d="M24 10c-4 3.5-6 7.6-6 11.4 0 3.3 2.7 5.6 6 5.6s6-2.3 6-5.6c0-3.8-2-7.9-6-11.4Z" fill="#C9A227"/>
-  <rect x="21.4" y="26" width="5.2" height="11" rx="1" fill="#C9A227"/>
-  <path d="M10 38c1-6 6-10 14-10s13 4 14 10" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
-        <span class="brand-text"><strong>Al Firdaus</strong><span>Institute &amp; Mosque</span></span>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-emerald-900/95 backdrop-blur-md border-b border-gold/30 shadow-lg">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <svg class="w-10 h-10 transition-transform group-hover:scale-105" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="#1B3B2C"/>
+          <path d="M24 10c-4 3.5-6 7.6-6 11.4 0 3.3 2.7 5.6 6 5.6s6-2.3 6-5.6c0-3.8-2-7.9-6-11.4Z" fill="#C9A227"/>
+          <rect x="21.4" y="26" width="5.2" height="11" rx="1" fill="#C9A227"/>
+          <path d="M10 38c1-6 6-10 14-10s13 4 14 10" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="flex flex-col">
+          <strong class="font-serif text-xl text-gold-light leading-none tracking-tight">Al Firdaus</strong>
+          <span class="text-[11px] tracking-wider uppercase text-emerald-100/70 font-medium">Institute &amp; Mosque</span>
+        </span>
       </a>
-      <div class="nav-links">
-        <a href="index.html" class="" data-i18n="nav_index">Home</a>
-        <a href="about.html" class="" data-i18n="nav_about">About</a>
-        <a href="institute.html" class="" data-i18n="nav_institute">Institute</a>
-        <a href="mosque.html" class="" data-i18n="nav_mosque">Mosque</a>
-        <a href="events.html" class="" data-i18n="nav_events">Events</a>
-        <a href="media.html" class="" data-i18n="nav_media">Media</a>
-        <a href="donate.html" class="active" data-i18n="nav_donate">Donate</a>
-        <a href="contact.html" class="" data-i18n="nav_contact">Contact</a>
-        <details class="nav-dropdown">
-          <summary data-i18n="nav_tools">Tools</summary>
-          <div class="dropdown-panel">
-            <a href="qibla.html" data-i18n="nav_qibla">Qibla Finder</a>
-          <a href="zakat.html" data-i18n="nav_zakat">Zakat Calculator</a>
+
+      <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-200">
+        <a href="index.html" class="hover:text-gold-light transition-colors" data-i18n="nav_index">Home</a>
+        <a href="about.html" class="hover:text-gold-light transition-colors" data-i18n="nav_about">About</a>
+        <a href="institute.html" class="hover:text-gold-light transition-colors" data-i18n="nav_institute">Institute</a>
+        <a href="mosque.html" class="hover:text-gold-light transition-colors" data-i18n="nav_mosque">Mosque</a>
+        <a href="events.html" class="hover:text-gold-light transition-colors" data-i18n="nav_events">Events</a>
+        <a href="media.html" class="hover:text-gold-light transition-colors" data-i18n="nav_media">Media</a>
+        <a href="donate.html" class="text-gold-light font-semibold border-b-2 border-gold pb-0.5" data-i18n="nav_donate">Donate</a>
+        <a href="contact.html" class="hover:text-gold-light transition-colors" data-i18n="nav_contact">Contact</a>
+        
+        <div class="relative group cursor-pointer">
+          <span class="inline-flex items-center gap-1 hover:text-gold-light transition-colors py-2" data-i18n="nav_tools">
+            Tools
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </span>
+          <div class="absolute left-0 mt-1 w-48 rounded-xl bg-emerald-950 border border-gold/30 shadow-2xl py-2 hidden group-hover:block">
+            <a href="qibla.html" class="block px-4 py-2 text-sm text-slate-200 hover:bg-gold/20 hover:text-gold-light" data-i18n="nav_qibla">Qibla Finder</a>
+            <a href="zakat.html" class="block px-4 py-2 text-sm text-slate-200 hover:bg-gold/20 hover:text-gold-light" data-i18n="nav_zakat">Zakat Calculator</a>
           </div>
-        </details>
+        </div>
       </div>
-      <div class="nav-cta">
-        <a href="donate.html" class="btn btn-gold btn-sm" data-i18n="donate_now">Donate Now</a>
-        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
+
+      <div class="flex items-center gap-3">
+        <a href="donate.html" class="px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-gold-light to-gold text-emerald-950 shadow-md hover:brightness-110" data-i18n="donate_now">Donate Now</a>
+        <button class="nav-toggle md:hidden p-2 rounded-lg text-slate-200 hover:bg-white/10" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </nav>
+
+    <!-- Mobile Drawer -->
+    <div class="nav-links md:hidden hidden bg-emerald-950 border-b border-gold/30 px-6 py-4 space-y-3 text-slate-200 font-medium text-sm">
+      <a href="index.html" class="block hover:text-gold-light" data-i18n="nav_index">Home</a>
+      <a href="about.html" class="block hover:text-gold-light" data-i18n="nav_about">About</a>
+      <a href="institute.html" class="block hover:text-gold-light" data-i18n="nav_institute">Institute</a>
+      <a href="mosque.html" class="block hover:text-gold-light" data-i18n="nav_mosque">Mosque</a>
+      <a href="events.html" class="block hover:text-gold-light" data-i18n="nav_events">Events</a>
+      <a href="media.html" class="block hover:text-gold-light" data-i18n="nav_media">Media</a>
+      <a href="donate.html" class="block text-gold-light font-bold" data-i18n="nav_donate">Donate</a>
+      <a href="contact.html" class="block hover:text-gold-light" data-i18n="nav_contact">Contact</a>
+      <a href="qibla.html" class="block hover:text-gold-light" data-i18n="nav_qibla">Qibla Finder</a>
+      <a href="zakat.html" class="block hover:text-gold-light" data-i18n="nav_zakat">Zakat Calculator</a>
+    </div>
   </header>
 
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 text-white overflow-hidden py-16 lg:py-24">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-gold/15 text-gold-light border border-gold/30">
+          Support Al Firdaus
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+          Support our <span class="text-gold-light">masjid</span> &amp; projects
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          Your generosity sustains our mosque facilities, funds student scholarships, and provides essential relief to families in Dar es Salaam. JazakumAllah Khair.
+        </p>
+      </div>
 
-  <section class="page-hero">
-    <svg class="hero-silhouette" viewBox="0 0 1400 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g fill="#1F4632" opacity="0.7">
-    <rect x="0" y="330" width="1400" height="90"/>
-    <rect x="60" y="260" width="14" height="160"/>
-    <circle cx="67" cy="252" r="10"/>
-    <path d="M160 330c0-70 40-120 90-120s90 50 90 120Z"/>
-    <rect x="190" y="180" width="16" height="150"/>
-    <circle cx="198" cy="172" r="11"/>
-    <path d="M420 330c0-95 55-160 120-160s120 65 120 160Z"/>
-    <rect x="360" y="200" width="16" height="130"/>
-    <circle cx="368" cy="192" r="10"/>
-    <rect x="704" y="200" width="16" height="130"/>
-    <circle cx="712" cy="192" r="10"/>
-    <path d="M900 330c0-60 34-100 78-100s78 40 78 100Z"/>
-    <rect x="1040" y="240" width="14" height="150"/>
-    <circle cx="1047" cy="232" r="9"/>
-    <path d="M1150 330c0-80 45-135 100-135s100 55 100 135Z"/>
-    <rect x="1310" y="250" width="14" height="140"/>
-    <circle cx="1317" cy="242" r="9"/>
-  </g>
-</svg>
-    <div class="wrap">
-      <div class="eyebrow">Donate</div>
-      <h1>Support our masjid &amp; projects</h1>
-      <p>Your generosity sustains our mosque, funds education, and supports families in need. JazakumAllah Khair.</p>
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-md bg-gradient-to-b from-emerald-900 to-emerald-950 p-8 rounded-3xl border-2 border-gold/30 shadow-2xl text-center space-y-4">
+          <div class="w-20 h-20 rounded-full bg-gold/20 text-gold-light flex items-center justify-center mx-auto shadow-inner">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.5-9C.7 7.5 3 4 6.5 4c2 0 3.5 1.2 4.5 2.6C12 5.2 13.5 4 15.5 4 19 4 21.3 7.5 19.5 11c-2.5 4.6-9.5 9-9.5 9Z"/></svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-gold-light">Sadaqah Jariyah</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">"When a person dies, all their deeds end except three: Sadaqah Jariyah, beneficial knowledge, or a righteous child who prays for them."</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap grid grid-2" style="align-items:start;">
-      <div>
-        <div class="eyebrow">Choose a Cause</div>
-        <h2 class="h-lg">Where your donation goes</h2>
-        <div class="grid" style="margin-top:1.4rem;gap:1rem;">
-          <div class="card" style="display:flex;gap:1rem;align-items:flex-start;"><div class="card-icon card--gold" style="margin-bottom:0;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M4 21v-7l4-3 4 3v7M13 21v-9l3-3 4 3v9"/><circle cx="8" cy="6" r="1.6"/></svg></div><div><h3 style="margin-bottom:.2rem;">Masjid Maintenance</h3><p style="margin-bottom:0;">Utilities, upkeep and facility improvements.</p></div></div>
-          <div class="card" style="display:flex;gap:1rem;align-items:flex-start;"><div class="card-icon card--gold" style="margin-bottom:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg></div><div><h3 style="margin-bottom:.2rem;">Quran &amp; Education</h3><p style="margin-bottom:0;">Scholarships and resources for Institute students.</p></div></div>
-          <div class="card" style="display:flex;gap:1rem;align-items:flex-start;"><div class="card-icon card--gold" style="margin-bottom:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-9.5-9C.7 7.5 3 4 6.5 4c2 0 3.5 1.2 4.5 2.6C12 5.2 13.5 4 15.5 4 19 4 21.3 7.5 19.5 11c-2.5 4.6-9.5 9-9.5 9Z"/></svg></div><div><h3 style="margin-bottom:.2rem;">Community Iftar</h3><p style="margin-bottom:0;">Shared meals during Ramadan and throughout the year.</p></div></div>
-          <div class="card" style="display:flex;gap:1rem;align-items:flex-start;"><div class="card-icon card--gold" style="margin-bottom:0;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.6 3.3-5.6 6.5-5.6s5.7 2 6.5 5.6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15.5 14.5c2.6.2 4.5 2 5 5.5"/></svg></div><div><h3 style="margin-bottom:.2rem;">Orphan &amp; Family Support</h3><p style="margin-bottom:0;">Direct assistance to families facing hardship.</p></div></div>
+  <!-- Donation Form & Causes Grid -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-start">
+      <!-- Causes Column -->
+      <div class="lg:col-span-6 space-y-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold-dark">Choose a Cause</span>
+          <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1">Where your donation goes</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-gold transition-all flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold-dark flex items-center justify-center shrink-0 font-bold">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 21h18M4 21v-7l4-3 4 3v7M13 21v-9l3-3 4 3v9"/><circle cx="8" cy="6" r="1.6"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-bold text-slate-900">Masjid Maintenance &amp; Upkeep</h3>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">Utilities, clean water, sound system maintenance, and facility improvements for daily worshippers.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-gold transition-all flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold-dark flex items-center justify-center shrink-0 font-bold">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-bold text-slate-900">Quran &amp; Islamic Education</h3>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">Scholarships, books, and educational resources for Institute students learning Quran and Arabic.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-gold transition-all flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold-dark flex items-center justify-center shrink-0 font-bold">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.5-9C.7 7.5 3 4 6.5 4c2 0 3.5 1.2 4.5 2.6C12 5.2 13.5 4 15.5 4 19 4 21.3 7.5 19.5 11c-2.5 4.6-9.5 9-9.5 9Z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-bold text-slate-900">Community Iftar &amp; Relief Fund</h3>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">Shared meals during Ramadan and emergency food relief for families facing hardship.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 hover:border-gold transition-all flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold-dark flex items-center justify-center shrink-0 font-bold">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.6 3.3-5.6 6.5-5.6s5.7 2 6.5 5.6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15.5 14.5c2.6.2 4.5 2 5 5.5"/></svg>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-bold text-slate-900">Orphan &amp; Family Welfare</h3>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">Direct financial assistance and educational support for orphans in Dar es Salaam.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card" style="background:var(--offwhite);">
-        <h3>Make a Donation</h3>
-        <p>Select an amount or enter your own — this is a prototype form for demonstration.</p>
-        <form data-demo-form>
-          <div class="amount-grid">
-            <button type="button" class="amount-btn" data-amount="10000">TZS 10,000</button>
-            <button type="button" class="amount-btn" data-amount="20000">TZS 20,000</button>
-            <button type="button" class="amount-btn" data-amount="50000">TZS 50,000</button>
-            <button type="button" class="amount-btn" data-amount="">Other</button>
+
+      <!-- Form Column -->
+      <div class="lg:col-span-6 bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-xl">
+        <h3 class="font-serif text-2xl font-bold text-slate-900 mb-2">Make a Contribution</h3>
+        <p class="text-xs text-slate-500 mb-6">Select an amount or enter custom details to contribute.</p>
+
+        <form id="donationForm" data-donation-form class="space-y-4">
+          <div class="amount-grid grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <button type="button" class="amount-btn px-3 py-3 rounded-xl border border-slate-200 bg-white font-bold text-xs hover:bg-emerald-900 hover:text-white transition-all" data-amount="10000">10,000</button>
+            <button type="button" class="amount-btn px-3 py-3 rounded-xl border border-slate-200 bg-white font-bold text-xs hover:bg-emerald-900 hover:text-white transition-all" data-amount="20000">20,000</button>
+            <button type="button" class="amount-btn px-3 py-3 rounded-xl border border-slate-200 bg-white font-bold text-xs hover:bg-emerald-900 hover:text-white transition-all" data-amount="50000">50,000</button>
+            <button type="button" class="amount-btn px-3 py-3 rounded-xl border border-slate-200 bg-white font-bold text-xs hover:bg-emerald-900 hover:text-white transition-all" data-amount="">Other</button>
           </div>
-          <div class="form-field">
-            <label for="customAmount">Amount (TZS)</label>
-            <input type="number" id="customAmount" name="amount" placeholder="e.g. 25000">
-          </div>
-          <div class="form-field">
-            <label for="donorName">Full Name</label>
-            <input type="text" id="donorName" name="name" placeholder="Your name" required>
-          </div>
-          <div class="form-field">
-            <label for="donorPhone">Phone / Mobile Money Number</label>
-            <input type="tel" id="donorPhone" name="phone" placeholder="e.g. 0700 000 000" required>
-          </div>
-          <div class="recurring-row">
-            <input type="checkbox" id="recurringToggle" name="is_recurring">
-            <label for="recurringToggle" style="margin:0;">Make this a recurring donation</label>
-          </div>
-          <div id="recurringIntervalWrap" class="form-field" style="display:none;">
-            <label for="recurringInterval">Repeat</label>
-            <select id="recurringInterval" name="recurring_interval">
-              <option value="monthly">Monthly</option>
-              <option value="weekly">Weekly</option>
+
+          <div>
+            <label for="causeSelect" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Select Cause / Fund</label>
+            <select id="causeSelect" name="cause" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold bg-white">
+              <option value="">General Mosque &amp; Institute Fund</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-gold btn-block">Donate Now</button>
-          <p class="form-success" style="display:none;color:var(--green);font-weight:600;margin-top:1rem;">JazakumAllah Khair! This is a demo — no payment has been processed.</p>
+
+          <div>
+            <label for="customAmount" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Amount (TZS)</label>
+            <input type="number" id="customAmount" name="amount" placeholder="e.g. 25000" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+          </div>
+
+          <div>
+            <label for="donorName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Full Name</label>
+            <input type="text" id="donorName" name="name" placeholder="Your full name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+          </div>
+
+          <div>
+            <label for="donorPhone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Phone Number (M-Pesa / Tigo Pesa)</label>
+            <input type="tel" id="donorPhone" name="phone" placeholder="e.g. 0712 345 678" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+          </div>
+
+          <div>
+            <label for="donorEmail" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Email Address (for PDF Receipt)</label>
+            <input type="email" id="donorEmail" name="email" placeholder="e.g. donor@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+          </div>
+
+          <div class="flex items-center gap-2 pt-2">
+            <input type="checkbox" id="recurringToggle" name="is_recurring" class="w-4 h-4 rounded text-emerald-900 focus:ring-gold">
+            <label for="recurringToggle" class="text-xs font-semibold text-slate-700">Make this a recurring monthly donation</label>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-gold-light to-gold text-emerald-950 shadow-lg hover:brightness-110 transition-all text-sm mt-4">Donate Now</button>
+          <p class="form-success hidden text-xs font-bold text-emerald-700 text-center mt-3">JazakumAllah Khair! Contribution submitted successfully.</p>
         </form>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Other Ways to Give</div><h2 class="h-lg">Bank &amp; mobile money</h2></div></div>
-      <div class="grid grid-3">
-        <div class="card"><h3>Bank Transfer</h3><p>Account Name: Al Firdaus Institute &amp; Mosque<br>Bank: [Bank Name]<br>Account No: [0000000000]</p></div>
-        <div class="card"><h3>Mobile Money</h3><p>M-Pesa / Tigo Pesa / Airtel Money<br>Paybill: [00000]<br>Reference: Donation</p></div>
-        <div class="card"><h3>In Person</h3><p>Donation boxes are available at the mosque entrance and office during all prayer times.</p></div>
+  <!-- Bank & Mobile Transfer Info -->
+  <section class="py-16 bg-slate-100/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-dark">Alternative Payment Methods</span>
+        <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1">Direct Bank &amp; Mobile Transfers</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <h3 class="font-serif text-lg font-bold text-emerald-900">Bank Transfer</h3>
+          <p class="text-xs text-slate-600"><strong>Account Name:</strong> Al Firdaus Institute &amp; Mosque</p>
+          <p class="text-xs text-slate-600"><strong>Bank:</strong> CRDB / NMB Bank</p>
+          <p class="text-xs text-slate-600 font-mono"><strong>Account No:</strong> 0150000000000</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <h3 class="font-serif text-lg font-bold text-emerald-900">Mobile Money (Selcom)</h3>
+          <p class="text-xs text-slate-600"><strong>M-Pesa / Tigo Pesa / Airtel Money</strong></p>
+          <p class="text-xs text-slate-600"><strong>Paybill / Lipa Namba:</strong> 700000</p>
+          <p class="text-xs text-slate-600"><strong>Reference:</strong> Donation</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <h3 class="font-serif text-lg font-bold text-emerald-900">In Person / Donation Box</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Secure donation boxes are available at the main mosque entrance and office during all daily prayer times.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="brand" style="margin-bottom:1rem;display:inline-flex;">
-            <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="24" cy="24" r="24" fill="#1B3B2C"/>
-  <path d="M24 10c-4 3.5-6 7.6-6 11.4 0 3.3 2.7 5.6 6 5.6s6-2.3 6-5.6c0-3.8-2-7.9-6-11.4Z" fill="#C9A227"/>
-  <rect x="21.4" y="26" width="5.2" height="11" rx="1" fill="#C9A227"/>
-  <path d="M10 38c1-6 6-10 14-10s13 4 14 10" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
-            <span class="brand-text"><strong style="color:#fff;">Al Firdaus</strong><span style="color:#9FB3A8;">Institute &amp; Mosque</span></span>
+  <!-- Footer -->
+  <footer class="bg-emerald-950 text-slate-400 pt-16 pb-8 border-t-4 border-gold">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        <div class="lg:col-span-2 space-y-4">
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-8 h-8" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="24" fill="#1B3B2C"/>
+              <path d="M24 10c-4 3.5-6 7.6-6 11.4 0 3.3 2.7 5.6 6 5.6s6-2.3 6-5.6c0-3.8-2-7.9-6-11.4Z" fill="#C9A227"/>
+              <rect x="21.4" y="26" width="5.2" height="11" rx="1" fill="#C9A227"/>
+              <path d="M10 38c1-6 6-10 14-10s13 4 14 10" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <strong class="font-serif text-lg text-white">Al Firdaus</strong>
           </a>
-          <p>A place of worship, learning and service in Dar es Salaam — growing together in the light of the Qur'an and Sunnah.</p>
-          <div class="social-row" style="margin-top:1.2rem;">
-            <a href="https://wa.me/255700000000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.7 14.3c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.2-3.6-.8-3-1.2-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5l-.5.5c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l1.7.8c.2.1.4.2.4.4 0 .2 0 .9-.2 1.6Z"/></svg></a>
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">ig</a>
-            <a href="#" aria-label="YouTube">yt</a>
-          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">A place of worship, learning and service in Dar es Salaam — growing together in the light of the Qur'an and Sunnah.</p>
         </div>
+
         <div>
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="institute.html">Our Programs</a></li>
-            <li><a href="mosque.html">Prayer Times</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="qibla.html">Qibla Finder</a></li>
+          <h4 class="font-serif text-sm font-bold text-white mb-4">Explore</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="about.html" class="hover:text-gold-light">About Us</a></li>
+            <li><a href="institute.html" class="hover:text-gold-light">Our Programs</a></li>
+            <li><a href="mosque.html" class="hover:text-gold-light">Prayer Times</a></li>
+            <li><a href="events.html" class="hover:text-gold-light">Events</a></li>
+            <li><a href="qibla.html" class="hover:text-gold-light">Qibla Finder</a></li>
           </ul>
         </div>
+
         <div>
-          <h4>Get Involved</h4>
-          <ul>
-            <li><a href="donate.html">Donate</a></li>
-            <li><a href="zakat.html">Zakat Calculator</a></li>
-            <li><a href="media.html">Media &amp; News</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="contact.html">Volunteer</a></li>
+          <h4 class="font-serif text-sm font-bold text-white mb-4">Get Involved</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="donate.html" class="text-gold-light font-semibold">Donate</a></li>
+            <li><a href="zakat.html" class="hover:text-gold-light">Zakat Calculator</a></li>
+            <li><a href="media.html" class="hover:text-gold-light">Media &amp; News</a></li>
+            <li><a href="contact.html" class="hover:text-gold-light">Contact Us</a></li>
           </ul>
         </div>
+
         <div>
-          <h4>Contact</h4>
-          <ul>
+          <h4 class="font-serif text-sm font-bold text-white mb-4">Contact</h4>
+          <ul class="space-y-2 text-xs">
             <li>Kinondoni, Dar es Salaam, Tanzania</li>
             <li>+255 700 000 000</li>
             <li>info@alfirdaus.or.tz</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>&copy; <span data-year></span> Al Firdaus Institute &amp; Mosque. All rights reserved.</span>
-        <span>Website prototype — design reference build</span>
+
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+        <p>&copy; <span data-year>2026</span> Al Firdaus Institute &amp; Mosque. All rights reserved.</p>
+        <p>Al Firdaus Digital Platform</p>
       </div>
     </div>
   </footer>
 
-<script src="js/i18n.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
-

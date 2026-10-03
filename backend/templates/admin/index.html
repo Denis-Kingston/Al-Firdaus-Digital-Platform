@@ -1,0 +1,459 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+  /* High-Contrast Styling for KPI Cards & Charts */
+  .kpi-card {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 1.25rem !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+  }
+  .kpi-title {
+    color: #94a3b8 !important;
+    font-weight: 700 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+  }
+  .kpi-metric {
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    font-size: 1.65rem !important;
+    letter-spacing: -0.02em !important;
+    margin: 0.35rem 0 !important;
+    display: block !important;
+    line-height: 1.2 !important;
+  }
+  .kpi-footer {
+    color: #34d399 !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+  }
+  .chart-card-box {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 1.25rem !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  }
+  .chart-title-text {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+  }
+  .chart-subtitle-text {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+    font-size: 0.78rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Light mode override if user switches theme */
+  html:not(.dark) .kpi-card,
+  html.light .kpi-card {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  }
+  html:not(.dark) .kpi-title,
+  html.light .kpi-title {
+    color: #475569 !important;
+  }
+  html:not(.dark) .kpi-metric,
+  html.light .kpi-metric {
+    color: #0f172a !important;
+  }
+  html:not(.dark) .kpi-footer,
+  html.light .kpi-footer {
+    color: #059669 !important;
+  }
+  html:not(.dark) .chart-card-box,
+  html.light .chart-card-box {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+  }
+  html:not(.dark) .chart-title-text,
+  html.light .chart-title-text {
+    color: #0f172a !important;
+  }
+  html:not(.dark) .chart-subtitle-text,
+  html.light .chart-subtitle-text {
+    color: #64748b !important;
+  }
+
+  /* Activity Grid Layout & Full-Width Message Reading Box */
+  .dashboard-activity-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+    box-sizing: border-box !important;
+  }
+  @media (min-width: 1024px) {
+    .dashboard-activity-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  .msg-item-box {
+    background-color: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 0.85rem !important;
+    padding: 1rem 1.15rem !important;
+    margin-bottom: 0.85rem !important;
+    transition: all 0.2s ease !important;
+  }
+  .msg-item-box:hover {
+    border-color: #64748b !important;
+    background-color: #142036 !important;
+  }
+  .msg-content-bubble {
+    background-color: #1e293b !important;
+    border-left: 4px solid #10b981 !important;
+    border-radius: 0.5rem !important;
+    padding: 0.85rem 1rem !important;
+    margin: 0.6rem 0 !important;
+    color: #f8fafc !important;
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    font-family: ui-sans-serif, system-ui, sans-serif !important;
+  }
+  html:not(.dark) .msg-item-box,
+  html.light .msg-item-box {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+  html:not(.dark) .msg-content-bubble,
+  html.light .msg-content-bubble {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-left-color: #059669 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  }
+</style>
+
+{% if kpi_metrics %}
+<!-- Top Ultra-High Contrast KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+    {% for card in kpi_metrics %}
+    <div class="kpi-card space-y-2 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+            <span class="kpi-title">{{ card.title }}</span>
+            <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                <span class="material-symbols-outlined text-lg">{{ card.icon }}</span>
+            </div>
+        </div>
+        <strong class="kpi-metric">{{ card.metric }}</strong>
+        <p class="kpi-footer leading-tight">{{ card.footer }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- High-Contrast Interactive Analytics Charts Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+    <!-- Chart 1: Cause Donations vs Targets -->
+    <div class="lg:col-span-8 chart-card-box space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+            <div>
+                <h3 class="chart-title-text flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-400">bar_chart</span>
+                    <span>Donations &amp; Campaign Target Progress</span>
+                </h3>
+                <p class="chart-subtitle-text">Total funds raised vs target amounts per active campaign (TZS)</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Live Sync</span>
+        </div>
+        <div class="relative h-72 w-full">
+            <canvas id="causesChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart 2: Institute Enrolments Breakdown -->
+    <div class="lg:col-span-4 chart-card-box space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+            <div>
+                <h3 class="chart-title-text flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-400">donut_small</span>
+                    <span>Student Enrolments</span>
+                </h3>
+                <p class="chart-subtitle-text">Course category distribution</p>
+            </div>
+        </div>
+        <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="coursesChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Real-Time Activity Feeds: Recent Event RSVPs & Contact Messages -->
+<div class="dashboard-activity-grid">
+    <!-- Card 1: Recent Event RSVPs -->
+    <div class="chart-card-box space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+            <div>
+                <h3 class="chart-title-text flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-400">how_to_reg</span>
+                    <span>Recent Event RSVPs (Attendees)</span>
+                </h3>
+                <p class="chart-subtitle-text">Watu walioomba kuhudhuria matukio ya msikiti kupitia tovuti</p>
+            </div>
+            <a href="{% url 'admin:events_rsvp_changelist' %}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 transition-colors border border-emerald-500/30">
+                <span>View All RSVPs</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+
+        {% if recent_rsvps %}
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="border-b border-slate-700/70 text-slate-400 uppercase tracking-wider text-[11px]">
+                        <th class="py-2.5 px-3">Mshiriki / Name</th>
+                        <th class="py-2.5 px-3">Tukio / Event</th>
+                        <th class="py-2.5 px-3">Namba ya Simu</th>
+                        <th class="py-2.5 px-3">Tarehe</th>
+                        <th class="py-2.5 px-3 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/80">
+                    {% for rsvp in recent_rsvps %}
+                    <tr class="hover:bg-slate-800/40 transition-colors">
+                        <td class="py-3 px-3">
+                            <strong class="text-white font-bold block">{{ rsvp.name }}</strong>
+                        </td>
+                        <td class="py-3 px-3">
+                            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800/50">
+                                {{ rsvp.event.title }}
+                            </span>
+                        </td>
+                        <td class="py-3 px-3 text-slate-300 font-mono">{{ rsvp.phone|default:"-" }}</td>
+                        <td class="py-3 px-3 text-slate-400">{{ rsvp.created_at|date:"d M Y, H:i" }}</td>
+                        <td class="py-3 px-3 text-right">
+                            <a href="{% url 'admin:events_rsvp_change' rsvp.id %}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-700 text-slate-200 hover:bg-emerald-600 hover:text-white transition-colors">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="py-8 text-center text-slate-400 text-xs">
+            <span class="material-symbols-outlined text-3xl text-slate-600 block mb-1">person_search</span>
+            Hakuna maombi ya RSVP bado. Watumiaji wakiomba kuhudhuria matukio, yataonekana hapa moja kwa moja.
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Card 2: Recent Contact Messages with Clear Text Reading Area -->
+    <div class="chart-card-box space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+            <div>
+                <h3 class="chart-title-text flex items-center gap-2">
+                    <span class="material-symbols-outlined text-purple-400">mail</span>
+                    <span>Recent Contact Messages (Jumbe za Tovuti)</span>
+                </h3>
+                <p class="chart-subtitle-text">Soma jumbe zilizotumwa kutoka ukurasa wa Contact Us moja kwa moja</p>
+            </div>
+            <a href="{% url 'admin:mosque_info_contactmessage_changelist' %}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 transition-colors border border-purple-500/30">
+                <span>View All Messages</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+
+        {% if recent_messages %}
+        <div class="space-y-3 max-h-[480px] overflow-y-auto pr-1">
+            {% for msg in recent_messages %}
+            <div class="msg-item-box">
+                <div class="flex items-center justify-between gap-2 mb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-xs uppercase">
+                            {{ msg.name|slice:":1" }}
+                        </div>
+                        <div>
+                            <strong class="text-white font-bold text-sm block leading-tight">{{ msg.name }}</strong>
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                <span>{{ msg.email }}</span>
+                                {% if msg.phone %}
+                                <span>&middot;</span>
+                                <span class="font-mono text-emerald-400">{{ msg.phone }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        {% if not msg.is_read %}
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">New</span>
+                        {% else %}
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-slate-400 border border-slate-700">Read</span>
+                        {% endif %}
+                        <span class="text-slate-400 text-[11px] whitespace-nowrap">{{ msg.created_at|date:"d M, H:i" }}</span>
+                    </div>
+                </div>
+
+                <div class="text-xs font-semibold text-gold-light mb-1 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">label</span>
+                    <span>Mada / Subject:</span> <span class="text-slate-200">{{ msg.subject|default:"General Enquiry" }}</span>
+                </div>
+
+                <!-- High-Legibility Message Text Box -->
+                <div class="msg-content-bubble">
+                    {{ msg.message|default:"(No message body)" }}
+                </div>
+
+                <div class="flex justify-end pt-1">
+                    <a href="{% url 'admin:mosque_info_contactmessage_change' msg.id %}" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-700/80 hover:bg-purple-600 text-slate-200 hover:text-white transition-all border border-slate-600">
+                        <span>Fungua / Jibu Ujumbe</span>
+                        <span class="material-symbols-outlined text-xs">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="py-8 text-center text-slate-400 text-xs">
+            <span class="material-symbols-outlined text-3xl text-slate-600 block mb-1">mark_email_read</span>
+            Hakuna ujumbe mpya kwa sasa.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const causesData = {{ chart_causes_json|safe }};
+    const coursesData = {{ chart_courses_json|safe }};
+
+    // Determine current theme
+    const isDark = document.documentElement.classList.contains('dark') || !document.documentElement.classList.contains('light');
+    const primaryTextColor = isDark ? '#ffffff' : '#0f172a';
+    const secondaryTextColor = isDark ? '#cbd5e1' : '#334155';
+    const gridLineColor = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
+
+    // Chart 1: Causes Bar Chart
+    const ctxCauses = document.getElementById('causesChart')?.getContext('2d');
+    if (ctxCauses) {
+        new Chart(ctxCauses, {
+            type: 'bar',
+            data: {
+                labels: causesData.labels,
+                datasets: [
+                    {
+                        label: 'Total Raised (TZS)',
+                        data: causesData.raised,
+                        backgroundColor: '#10b981',
+                        borderRadius: 8,
+                        barPercentage: 0.5,
+                    },
+                    {
+                        label: 'Target Amount (TZS)',
+                        data: causesData.targets,
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 8,
+                        barPercentage: 0.5,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: primaryTextColor,
+                            font: { size: 12, weight: 'bold' },
+                            padding: 16
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 12,
+                        callbacks: {
+                            label: (ctx) => ` ${ctx.dataset.label}: ${Number(ctx.raw).toLocaleString()} TZS`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: primaryTextColor,
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        grid: { color: gridLineColor }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: primaryTextColor,
+                            font: { size: 12, weight: 'bold' },
+                            callback: (val) => `${Number(val / 1000).toLocaleString()}k TZS`
+                        },
+                        grid: { color: gridLineColor }
+                    }
+                }
+            }
+        });
+    }
+
+    // Chart 2: Courses Doughnut Chart
+    const ctxCourses = document.getElementById('coursesChart')?.getContext('2d');
+    if (ctxCourses) {
+        new Chart(ctxCourses, {
+            type: 'doughnut',
+            data: {
+                labels: coursesData.labels,
+                datasets: [{
+                    data: coursesData.counts,
+                    backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#a855f7'],
+                    borderWidth: 3,
+                    borderColor: isDark ? '#1e293b' : '#ffffff',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: primaryTextColor,
+                            font: { size: 11, weight: 'bold' },
+                            padding: 12
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 10
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+    }
+});
+</script>
+{% endif %}
+
+{% endblock %}

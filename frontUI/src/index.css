@@ -1,0 +1,371 @@
+/* Al Firdaus Digital Platform - Clean & Professional Design System */
+:root {
+  /* Clean Dark Palette */
+  --bg-canvas: #07150E;
+  --bg-dark: #0A1B12;
+  --bg-surface: #0E2419;
+  --bg-card: #10281C;
+  --bg-card-hover: #143224;
+  
+  /* Refined Gold */
+  --gold: #C9A227;
+  --gold-light: #E5C158;
+  --gold-hover: #D8AF2B;
+  --gold-subtle: rgba(201, 162, 39, 0.12);
+  --gold-border: rgba(201, 162, 39, 0.28);
+
+  /* Clean Emerald Accent */
+  --emerald: #10B981;
+  --emerald-subtle: rgba(16, 185, 129, 0.12);
+  --emerald-border: rgba(16, 185, 129, 0.3);
+
+  /* Crisp Typography */
+  --text-white: #FFFFFF;
+  --text-light: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #8E9E94;
+
+  /* Fonts */
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+
+  /* Clean Geometry (No bulky 3D pills) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Subtle Clean Shadows (No 3D fuzzy neon glows) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  --transition: all 0.2s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
+  color: var(--text-light);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Typography Rules */
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  color: var(--text-white);
+  line-height: 1.25;
+}
+
+.arabic-script {
+  font-family: var(--font-arabic);
+  direction: rtl;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+/* Layout Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Clean, Flat Professional Buttons (No 3D Capsule Pill Glow) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  font-family: var(--font-sans);
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Clean Solid Gold Button */
+.btn-gold {
+  background-color: var(--gold);
+  color: #07150E;
+  border-color: #D8AF2B;
+}
+
+.btn-gold:hover {
+  background-color: var(--gold-hover);
+  color: #050E09;
+}
+
+/* Clean Emerald Button */
+.btn-emerald {
+  background-color: var(--emerald);
+  color: #FFFFFF;
+  border-color: #059669;
+}
+
+.btn-emerald:hover {
+  background-color: #059669;
+}
+
+/* Clean Outline Button */
+.btn-outline {
+  background: transparent;
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 0.85rem 1.85rem;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+}
+
+/* Badges - Crisp & Flat */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.badge-gold {
+  background: var(--gold-subtle);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-border);
+}
+
+.badge-emerald {
+  background: var(--emerald-subtle);
+  color: #34D399;
+  border: 1px solid var(--emerald-border);
+}
+
+/* Clean Flat Card System (No 3D Bulges) */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.card:hover {
+  border-color: rgba(201, 162, 39, 0.3);
+  background-color: var(--bg-card-hover);
+}
+
+/* Clean Inputs & Form Elements */
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background-color: #07170E;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: var(--gold);
+  background-color: #0A1F13;
+}
+
+/* Clean Navigation Bar Elements */
+.nav-link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  color: #94A3B8;
+  border: 1px solid transparent;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-sans);
+  white-space: nowrap !important;
+}
+
+.nav-link-item:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link-item.active {
+  color: var(--gold-light);
+  background: rgba(201, 162, 39, 0.12);
+  border-color: rgba(201, 162, 39, 0.3);
+  font-weight: 600;
+}
+
+/* Dropdown Menu - Clean Flat Architecture */
+.clean-dropdown-card {
+  background: #091A11;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  padding: 0.45rem;
+  min-width: 220px;
+}
+
+.clean-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: #E2E8F0;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+
+.clean-dropdown-item:hover {
+  background: rgba(201, 162, 39, 0.12);
+  color: var(--gold-light);
+}
+
+.clean-dropdown-item.active {
+  background: rgba(201, 162, 39, 0.18);
+  color: var(--gold-light);
+}
+
+/* Filter Tabs / Chips - Clean Flat Design */
+.filter-tab-btn {
+  background: #0B1D13;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.filter-tab-btn:hover {
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-tab-btn.active {
+  background: #143322;
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-slide {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: #153224;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}

@@ -57,7 +57,7 @@ Complete system architecture, design decisions, and data flow for the Al Firdaus
 ### 1. Presentation Layer
 
 #### Website (al-firdaus-website)
-- **Technology:** Plain HTML, CSS, JavaScript (no build step)
+- **Technology:** Plain HTML, Tailwind CSS, JavaScript 
 - **Hosted on:** Cloudflare Pages
 - **Features:**
   - Home page with mosque information
